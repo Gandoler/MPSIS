@@ -1,0 +1,23 @@
+module testbench();
+logic a, b, carry_i, sum,carry_o;
+
+  sumator DUT(                  // <- Подключаем проверяемый модуль
+    .a_i    (a),
+    .b_i    (b),
+    .carry_i(carry_i),
+    .sum_o  (sum),
+    .carry_o(carry_o)
+);
+
+  initial begin
+    a = 1'b0; b = 1'b0; carry_i=1'b0;            // <- Подаём на входы модуля тестовые
+    #10;                           //    воздействия
+    a = 1'b0; b = 1'b1;carry_i=1'b0;    
+    #10;                           // <- Делаем паузу в десять отсчётов
+    a = 1'b1; b = 1'b0; carry_i=1'b1;               //    времени симуляции перед очередным
+    #10;                           //    изменением входных сигналов
+    a = 1'b1; b = 1'b1;carry_i=1'b1;    
+    $finish();
+  end
+
+endmodule
